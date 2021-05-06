@@ -24,10 +24,13 @@ ModUtil.WrapBaseFunction("SetTraitsOnLoot", function( baseFunc, loot )
        loot.GodLoot and CurrentRun.RunDepthCache == 1.0 then
 
         Chamber1EpicOnly.EpicsGivenFlag = true 
+
+        loot.OverriddenRarityChances = loot.RarityChances
         loot.RarityChances = Chamber1EpicOnly.RarityOverride
-        baseFunc(loot)
-    else
-        loot.RarityChances = GetRarityChances(loot)
-        baseFunc(loot)
+    elseif loot.OverriddenRarityChances then
+        -- returning the original rarity chances without rolling again
+        -- in the case of a reroll
+        loot.RarityChances = loot.OverriddenRarityChances
     end
+    baseFunc(loot)
 end, ChooseStartingRoom)
