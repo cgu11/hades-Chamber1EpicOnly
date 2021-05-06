@@ -1,0 +1,6 @@
+-:
+  Chamber1EpicOnly v1.0
+  Authors:
+    cgull (Discord: cgull#4469)
+:-
+Import Chamber1EpicOnly.lua
