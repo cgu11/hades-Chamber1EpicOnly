@@ -33,4 +33,4 @@ ModUtil.WrapBaseFunction("SetTraitsOnLoot", function( baseFunc, loot )
         loot.RarityChances = loot.OverriddenRarityChances
     end
     baseFunc(loot)
-end, ChooseStartingRoom)
+end, Chamber1EpicOnly)
