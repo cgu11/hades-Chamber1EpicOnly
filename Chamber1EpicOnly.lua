@@ -18,7 +18,14 @@ Chamber1EpicOnly.RarityOverride = {
     Legendary = 0,
 }
 
-ModUtil.WrapBaseFunction("SetTraitsOnLoot", function( baseFunc, loot )    
+-- resetting flag for new runs
+ModUtil.WrapBaseFunction("StartNewRun", function( baseFunc, prevRun, args )
+    Chamber1EpicOnly.EpicsGivenFlag = false
+
+    return baseFunc(prevRun, args)
+end, Chamber1EpicOnly)
+
+ModUtil.WrapBaseFunction("SetTraitsOnLoot", function( baseFunc, loot, args )    
     if Chamber1EpicOnly.Config.Enabled and 
        not Chamber1EpicOnly.EpicsGivenFlag and
        loot.GodLoot and CurrentRun.RunDepthCache == 1.0 then
@@ -32,5 +39,5 @@ ModUtil.WrapBaseFunction("SetTraitsOnLoot", function( baseFunc, loot )
         -- in the case of a reroll
         loot.RarityChances = loot.OverriddenRarityChances
     end
-    baseFunc(loot)
-end, Chamber1EpicOnly)
+    baseFunc(loot, args)
+end, ChooseStartingRoom)
